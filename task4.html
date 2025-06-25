@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --gradient-start: #ff6a88;
+            --gradient-mid: #ff6a88;
+            --gradient-end: #ffcc00;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #222;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-mid));
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nav-link {
+            margin: 0 1rem;
+        }
+    </style>
+</head>
+<body class="py-10 px-4 sm:px-10">
+    <div class="max-w-6xl mx-auto">
+        <!-- Navigation Bar -->
+        <nav class="flex justify-between items-center mb-10">
+            <h1 class="text-3xl font-bold text-white">My Portfolio</h1>
+            <div>
+                <a href="#about" class="nav-link text-white">About</a>
+                <a href="#projects" class="nav-link text-white">Projects</a>
+                <a href="#contact" class="nav-link text-white">Contact</a>
+                <a href="#todo" class="nav-link text-white">To-Do List</a>
+            </div>
+        </nav>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">About Me</h3>
+                <p class="text-lg text-gray-700">
+                    I am a passionate web developer with experience in building responsive and interactive web applications. 
+                    I love creating user-friendly interfaces and solving complex problems with code.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Projects</h3>
+                <ul class="list-disc pl-5">
+                    <li>Project 1: Interactive Quiz App</li>
+                    <li>Project 2: To-Do List with Local Storage</li>
+                    <li>Project 3: Product Listing Page with Filtering</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Contact Me</h3>
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-700">Name:</label>
+                        <input type="text" id="name" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700">Email:</label>
+                        <input type="email" id="email" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700">Message:</label>
+                        <textarea id="message" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+                    </div>
+                    <button type="submit" class="btn px-6 py-3 rounded-lg font-medium">Send</button>
+                </form>
+                <div id="formMessage" class="mt-4 text-green-600"></div>
+            </div>
+        </section>
+
+        <!-- To-Do List Section -->
+        <section id="todo" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">To-Do List</h3>
+                <div class="flex space-x-4 mb-4">
+                    <input type="text" id="taskInput" placeholder="Add a new task" class="w-full p-2 border border-gray-300 rounded">
+                    <button id="addTaskButton" class="btn px-4 py-2 rounded-lg">Add Task</button>
+                </div>
+                <ul id="taskList" class="list-disc pl-5"></ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-white opacity-80 text-sm">
+            <p>Created as part of Full Project Implementation</p>
+            <p class="mt-1">Happy coding! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Form validation
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Simple validation
+            if (name && email && message) {
+                document.getElementById('formMessage').innerText = 'Thank you for your message!';
+                document.getElementById('contactForm').reset();
+            } else {
+                document.getElementById('formMessage').innerText = 'Please fill in all fields.';
+            }
+        });
+
+        // To-Do List with Local Storage
+        const taskInput = document.getElementById('taskInput');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskList = document.getElementById('taskList');
+
+        // Load tasks from local storage
+        const loadTasks = () => {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach(task => {
+                addTaskToList(task);
+            });
+        };
+
+        const addTaskToList = (task) => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            li.className = 'flex justify-between items-center mb-2';
+            
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.className = 'btn bg-red-500 px-2 py-1 rounded text-white';
+            removeButton.onclick = function() {
+                taskList.removeChild(li);
+                removeTaskFromLocalStorage(task);
+            };
+
+            li.appendChild(removeButton);
+            taskList.appendChild(li);
+        };
+
+        const removeTaskFromLocalStorage = (task) => {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const updatedTasks = tasks.filter(t => t !== task);
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        };
+
+        addTaskButton.addEventListener('click', function() {
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                addTaskToList(taskText);
+                saveTaskToLocalStorage(taskText);
+                taskInput.value = ''; // Clear input
+            }
+        });
+
+        const saveTaskToLocalStorage = (task) => {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        };
+
+        // Load tasks on page load
+        loadTasks();
+    </script>
+</body>
+</html>

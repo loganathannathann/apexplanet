@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate Web Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --gradient-start: #ff6f61;
+            --gradient-mid: #6a82fb;
+            --gradient-end: #fc5c7d;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #222;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-mid));
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="py-10 px-4 sm:px-10">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-white drop-shadow-lg">
+                Intermediate Web Development
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-semibold text-white opacity-90 mb-6">
+                9-Day Learning Timeline
+            </h2>
+        </header>
+
+        <!-- Contact Form Section -->
+        <section class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Contact Form</h3>
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-700">Name:</label>
+                        <input type="text" id="name" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700">Email:</label>
+                        <input type="email" id="email" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700">Message:</label>
+                        <textarea id="message" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+                    </div>
+                    <button type="submit" class="btn px-6 py-3 rounded-lg font-medium">Submit</button>
+                </form>
+                <div id="formMessage" class="mt-4 text-green-600"></div>
+            </div>
+        </section>
+
+        <!-- To-Do List Section -->
+        <section>
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Dynamic To-Do List</h3>
+                <div class="flex space-x-4 mb-4">
+                    <input type="text" id="taskInput" placeholder="Add a new task" class="w-full p-2 border border-gray-300 rounded">
+                    <button id="addTaskButton" class="btn px-4 py-2 rounded-lg">Add Task</button>
+                </div>
+                <ul id="taskList" class="list-disc pl-5"></ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-white opacity-80 text-sm">
+            <p>Created as part of Intermediate Web Development</p>
+            <p class="mt-1">Happy coding! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Form validation
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Simple validation
+            if (name && email && message) {
+                document.getElementById('formMessage').innerText = 'Thank you for your message!';
+                document.getElementById('contactForm').reset();
+            } else {
+                document.getElementById('formMessage').innerText = 'Please fill in all fields.';
+            }
+        });
+
+        // Dynamic To-Do List
+        const taskInput = document.getElementById('taskInput');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskList = document.getElementById('taskList');
+
+        addTaskButton.addEventListener('click', function() {
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                const li = document.createElement('li');
+                li.textContent = taskText;
+                li.className = 'flex justify-between items-center mb-2';
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'btn bg-red-500 px-2 py-1 rounded text-white';
+                removeButton.onclick = function() {
+                    taskList.removeChild(li);
+                };
+
+                li.appendChild(removeButton);
+                taskList.appendChild(li);
+                taskInput.value = ''; // Clear input
+            }
+        });
+    </script>
+</body>
+</html>

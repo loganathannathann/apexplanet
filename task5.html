@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant E-Commerce Site</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        :root {
+            --gradient-start: #ff6a88;
+            --gradient-mid: #ffcc00;
+            --gradient-end: #ff6a88;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #222;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-mid));
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .product-img {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body class="py-10 px-4 sm:px-10">
+    <div class="max-w-6xl mx-auto">
+        <!-- Navigation Bar -->
+        <nav class="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
+            <h1 class="text-3xl font-bold text-white">🌈 Vibrant Shop</h1>
+            <div class="flex gap-4">
+                <a href="#products" class="text-white hover:text-yellow-200 transition">Products</a>
+                <a href="#about" class="text-white hover:text-yellow-200 transition">About</a>
+                <a href="#contact" class="text-white hover:text-yellow-200 transition">Contact</a>
+                <a href="#cart" class="text-white hover:text-yellow-200 transition flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Products Section -->
+        <section id="products" class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-gray-800">Our Vibrant Collection</h2>
+            
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="category-btn active px-4 py-2 rounded-full bg-white bg-opacity-70" data-category="all">All</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-white bg-opacity-30" data-category="home">Home Decor</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-white bg-opacity-30" data-category="fashion">Fashion</button>
+                <button class="category-btn px-4 py-2 rounded-full bg-white bg-opacity-30" data-category="tech">Tech</button>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="products-grid">
+                <!-- Product 1 -->
+                <div class="card overflow-hidden" data-category="home">
+                    <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Rainbow Wall Art" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">Rainbow Wall Art</h3>
+                        <p class="text-gray-600 mb-2">Brighten any room with this vibrant rainbow wall decoration</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$24.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="1">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="card overflow-hidden" data-category="fashion">
+                    <img src="https://images.unsplash.com/photo-1534214526114-0ea4a47b04f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Colorful Sneakers" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">Color Splash Sneakers</h3>
+                        <p class="text-gray-600 mb-2">Stand out with these vibrant high-top sneakers</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$59.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="2">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="card overflow-hidden" data-category="tech">
+                    <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="RGB Keyboard" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">RGB Gaming Keyboard</h3>
+                        <p class="text-gray-600 mb-2">Customizable colorful backlit mechanical keyboard</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$89.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="3">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="card overflow-hidden" data-category="home">
+                    <img src="https://images.unsplash.com/photo-1522441815012-d2b97d0a22dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Colorful Throw Pillows" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">Vibrant Throw Pillows</h3>
+                        <p class="text-gray-600 mb-2">Set of 3 colorful geometric pattern pillows</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$34.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="4">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="card overflow-hidden" data-category="fashion">
+                    <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Colorful Sunglasses" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">Retro Color Shades</h3>
+                        <p class="text-gray-600 mb-2">80s inspired colorful sunglasses with UV protection</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$29.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="5">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="card overflow-hidden" data-category="tech">
+                    <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Colorful Wireless Earbuds" 
+                         class="product-img" 
+                         loading="lazy">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-1">Rainbow Earbuds</h3>
+                        <p class="text-gray-600 mb-2">Wireless earbuds in 5 vibrant color options</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-purple-700">$49.99</span>
+                            <button class="btn add-to-cart px-4 py-2" data-id="6">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">About Vibrant Shop</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    We believe that color brings joy to everyday life. Founded in 2020, Vibrant Shop curates the most colorful and unique products to brighten your home, wardrobe, and tech setup.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-purple-700">Our Mission</h4>
+                        <p class="text-gray-600">To spread happiness through vibrant, high-quality products that make people smile every time they use them.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-purple-700">Our Values</h4>
+                        <p class="text-gray-600">Colorful. Creative. Quality. Every product we sell meets our high standards for both aesthetics and functionality.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-16">
+            <div class="card p-6 md:p-8 mb-8">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Contact Us</h3>
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-700">Name:</label>
+                        <input type="text" id="name" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-700">Email:</label>
+                        <input type="email" id="email" required class="w-full p-2 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700">Message:</label>
+                        <textarea id="message" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+                    </div>
+                    <button type="submit" class="btn px-6 py-3 rounded-lg font-medium">Send Message</button>
+                </form>
+                <div id="formMessage" class="mt-4 text-green-600"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 text-center text-white opacity-80 text-sm">
+            <p>© 2023 Vibrant Shop. All rights reserved.</p>
+            <p class="mt-1">Designed with ❤️ to bring color to your life</p>
+        </footer>
+    </div>
+
+    <!-- Shopping Cart Modal (hidden by default) -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex justify-end">
+        <div class="bg-white w-full max-w-md h-full overflow-y-auto">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-2xl">&times;</button>
+            </div>
+            <div id="cart-items" class="p-4">
+                <!-- Cart items will be added here dynamically -->
+                <p id="empty-cart-message">Your cart is empty</p>
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex justify-between mb-4">
+                    <span class="font-bold">Total:</span>
+                    <span id="cart-total" class="font-bold">$0.00</span>
+                </div>
+                <button class="btn w-full py-3">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        
+        // Form validation
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                document.getElementById('formMessage').innerText = 'Thank you for your message! We will get back to you soon.';
+                document.getElementById('contactForm').reset();
+                setTimeout(() => {
+                    document.getElementById('formMessage').innerText = '';
+                }, 5000);
+            } else {
+                document.getElementById('formMessage').innerText = 'Please fill in all fields.';
+            }
+        });
+
+        // Category filter
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const category = button.dataset.category;
+                const products = document.querySelectorAll('[data-category]');
+                
+                products.forEach(product => {
+                   
